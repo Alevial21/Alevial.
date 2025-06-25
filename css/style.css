@@ -165,3 +165,13 @@
   margin-bottom: 1.2rem;
   color: #333;
 }
+.animate-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
