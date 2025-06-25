@@ -209,3 +209,22 @@
     <div class="caption">Ciclista en subida</div>
   </div>
 </div>
+<section class="categorias-porfolio">
+  <div class="categoria-item" data-categoria="fauna" onclick="location.href='galeria-fauna.html'">
+    <img src="img/categorias/fauna.jpg" alt="Fauna">
+    <div class="overlay-texto">Fauna</div>
+  </div>
+  <div class="categoria-item" data-categoria="taurinas" onclick="location.href='galeria-taurinas.html'">
+    <img src="img/categorias/taurinas.jpg" alt="Taurinas">
+    <div class="overlay-texto">Taurinas</div>
+  </div>
+  <div class="categoria-item" data-categoria="turismo" onclick="location.href='galeria-turismo.html'">
+    <img src="img/categorias/turismo.jpg" alt="Turismo">
+    <div class="overlay-texto">Turismo</div>
+  </div>
+  <div class="categoria-item" data-categoria="deportes" onclick="location.href='galeria-deportes.html'">
+    <img src="img/categorias/deportes.jpg" alt="Eventos deportivos">
+    <div class="overlay-texto">Eventos deportivos</div>
+  </div>
+</section>
+
