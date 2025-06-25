@@ -127,3 +127,41 @@
     transform: translateY(0);
   }
 }
+.post-page {
+  padding: 6rem 1.5rem 4rem;
+  background-color: #fefcf7;
+  font-family: 'Lora', serif;
+  max-width: 900px;
+  margin: auto;
+}
+
+.post-content h1 {
+  color: #27541d;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.post-date {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.post-content h2 {
+  color: #1e3f15;
+  margin-top: 2rem;
+  font-size: 1.4rem;
+}
+
+.post-content p {
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  color: #333;
+}
