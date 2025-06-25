@@ -1,0 +1,225 @@
+/* Reset básico */
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: 'Lora', serif;
+  scroll-behavior: smooth;
+}
+
+/* Variables de color */
+:root {
+  --verde-oscuro: #27541d;
+  --beige-claro: #f5f0e6;
+  --beige-textura: #eae6dc;
+  --color-texto: #333;
+}
+
+/* Fondo general */
+body {
+  background-color: var(--beige-claro);
+  color: var(--color-texto);
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image: url('../img/texture-lino.png'); /* textura rural sutil */
+  background-repeat: repeat;
+  background-size: 100px 100px;
+}
+
+/* Contenedor general */
+main {
+  max-width: 1100px;
+  margin: 100px auto 60px;
+  padding: 0 15px;
+}
+
+/* Header - menú */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background-color: rgba(39, 84, 29, 0.95);
+  z-index: 1000;
+  transition: top 0.3s ease-in-out;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+header nav ul li {
+  margin: 0 15px;
+}
+
+header nav ul li a {
+  color: #f5f0e6;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Neuton', serif;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  color: #c1d99a;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 25px 10px;
+  font-weight: 600;
+  color: var(--verde-oscuro);
+  font-family: 'Alegreya', serif;
+  background-color: var(--beige-textura);
+  border-top: 1px solid var(--verde-oscuro);
+}
+
+/* Botones llamativos */
+button, .btn {
+  background-color: var(--verde-oscuro);
+  color: var(--beige-claro);
+  border: none;
+  padding: 12px 25px;
+  font-family: 'Neuton', serif;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 0 6px 8px rgba(39, 84, 29, 0.4);
+  transition: background-color 0.4s ease, box-shadow 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: #3c7335;
+  box-shadow: 0 10px 15px rgba(60, 115, 53, 0.6);
+}
+
+/* Carrusel - base */
+.carrusel {
+  position: relative;
+  width: 100%;
+  max-height: 450px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+.carrusel img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  transition: transform 1.2s ease;
+}
+
+/* Muro de ladrillos (masonry) */
+.masonry {
+  column-count: 3;
+  column-gap: 15px;
+  margin-top: 30px;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 15px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
+}
+
+.masonry-item img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.masonry-item:hover img {
+  transform: scale(1.05);
+}
+
+.masonry-item .caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: #fff;
+  padding: 8px 12px;
+  font-family: 'Neuton', serif;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0 0 12px 12px;
+}
+
+.masonry-item:hover .caption {
+  opacity: 1;
+}
+
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 2000;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.lightbox-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  user-select: none;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .masonry {
+    column-count: 1;
+  }
+  
+  header nav ul {
+    flex-direction: column;
+  }
+  
+  header nav ul li {
+    margin: 10px 0;
+  }
+}
