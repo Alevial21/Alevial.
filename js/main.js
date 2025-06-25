@@ -1,129 +1,66 @@
-// Variables globales para scroll menú
-let lastScrollTop = 0;
-const nav = document.querySelector('nav');
-
 // Ocultar/mostrar menú al hacer scroll
-window.addEventListener('scroll', () => {
-  const st = window.pageYOffset || document.documentElement.scrollTop;
-  if (st > lastScrollTop && st > 100) {
-    // Scroll hacia abajo: ocultar menú
-    nav.classList.add('hidden');
+let prevScrollPos = window.pageYOffset;
+const navbar = document.getElementById("navbar");
+
+window.addEventListener("scroll", () => {
+  const currentScrollPos = window.pageYOffset;
+  if (prevScrollPos > currentScrollPos) {
+    navbar.style.top = "0";
   } else {
-    // Scroll hacia arriba: mostrar menú
-    nav.classList.remove('hidden');
+    navbar.style.top = "-70px"; // altura aproximada del menú
   }
-  lastScrollTop = st <= 0 ? 0 : st; // Para no ir a negativos
+  prevScrollPos = currentScrollPos;
 });
 
-// CARRUSEL DE FONDO
-const slides = document.querySelectorAll('.carrusel-slide');
-let currentSlide = 0;
-const slideInterval = 6000; // 6 segundos
-
-function nextSlide() {
-  slides[currentSlide].classList.remove('active');
-  currentSlide = (currentSlide+1) % slides.length;
-  slides[currentSlide].classList.add('active');
-}
-
-if(slides.length > 0){
-  slides[currentSlide].classList.add('active');
-  setInterval(nextSlide, slideInterval);
-}
-
-// BOTONES CENTRALES - NAVEGACIÓN SUAVE
-const botones = document.querySelectorAll('.boton-img');
-
-botones.forEach(boton => {
-  boton.addEventListener('click', () => {
-    const destino = boton.dataset.destino;
-    const seccion = document.getElementById(destino);
-    if(seccion){
-      seccion.scrollIntoView({behavior: 'smooth'});
+// Animaciones al hacer scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("animate-visible");
     }
   });
 });
 
-// ANIMACIONES AL HACER SCROLL (fade-in)
-const animatedElements = document.querySelectorAll('.fade-in, .animate-on-scroll');
+document.querySelectorAll(".animate-fade").forEach((el) => observer.observe(el));
 
-function checkScroll(){
-  const triggerBottom = window.innerHeight * 0.85;
-  animatedElements.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if(top < triggerBottom){
-      el.classList.add('visible');
-      el.style.opacity = 1;
-      el.style.transform = 'translateY(0)';
-    }
-  });
-}
-
-window.addEventListener('scroll', checkScroll);
-window.addEventListener('load', checkScroll);
-
-// LIGHTBOX GALERÍA
-const galeria = document.querySelector('.galeria');
-if(galeria){
-  // Crear overlay lightbox
-  const overlay = document.createElement('div');
-  overlay.id = 'lightbox-overlay';
-  overlay.style.position = 'fixed';
-  overlay.style.top = 0;
-  overlay.style.left = 0;
-  overlay.style.width = '100vw';
-  overlay.style.height = '100vh';
-  overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
-  overlay.style.display = 'none';
-  overlay.style.justifyContent = 'center';
-  overlay.style.alignItems = 'center';
-  overlay.style.zIndex = '1500';
-
-  // Imagen dentro overlay
-  const imgLightbox = document.createElement('img');
-  imgLightbox.style.maxWidth = '90%';
-  imgLightbox.style.maxHeight = '80%';
-  imgLightbox.style.borderRadius = '10px';
-  overlay.appendChild(imgLightbox);
-
-  // Botón cerrar
-  const btnCerrar = document.createElement('button');
-  btnCerrar.textContent = '✕';
-  btnCerrar.style.position = 'absolute';
-  btnCerrar.style.top = '20px';
-  btnCerrar.style.right = '30px';
-  btnCerrar.style.fontSize = '2rem';
-  btnCerrar.style.color = '#fff';
-  btnCerrar.style.background = 'transparent';
-  btnCerrar.style.border = 'none';
-  btnCerrar.style.cursor = 'pointer';
-  btnCerrar.style.userSelect = 'none';
-  overlay.appendChild(btnCerrar);
-
-  document.body.appendChild(overlay);
-
-  // Abrir lightbox al clickar imagen
-  galeria.querySelectorAll('img').forEach(img => {
-    img.style.cursor = 'pointer';
-    img.addEventListener('click', () => {
-      imgLightbox.src = img.src;
-      overlay.style.display = 'flex';
-      document.body.style.overflow = 'hidden'; // bloquear scroll fondo
+// Carrusel automático (para portada)
+const carousel = document.getElementById("carousel");
+if (carousel) {
+  let index = 0;
+  const slides = carousel.querySelectorAll("img");
+  setInterval(() => {
+    slides.forEach((slide, i) => {
+      slide.style.opacity = i === index ? "1" : "0";
     });
-  });
+    index = (index + 1) % slides.length;
+  }, 4000);
+}
 
-  // Cerrar lightbox
-  btnCerrar.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    document.body.style.overflow = '';
-  });
+// Validación básica del formulario de contacto
+const form = document.querySelector("form");
+if (form) {
+  form.addEventListener("submit", function (e) {
+    const nombre = form.querySelector("input[name='nombre']");
+    const email = form.querySelector("input[name='email']");
+    const consulta = form.querySelector("textarea");
 
-  // Cerrar al clickar fuera de imagen
-  overlay.addEventListener('click', e => {
-    if(e.target === overlay){
-      overlay.style.display = 'none';
-      document.body.style.overflow = '';
+    if (!nombre.value.trim() || !email.value.trim() || !consulta.value.trim()) {
+      e.preventDefault();
+      alert("Por favor, completa todos los campos.");
+    } else if (!email.value.includes("@")) {
+      e.preventDefault();
+      alert("Introduce un correo electrónico válido.");
     }
   });
-
 }
+
+// Scroll suave para enlaces internos
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+});
